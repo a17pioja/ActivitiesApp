@@ -1,19 +1,56 @@
 package com.example.brom.activitiesapp;
-
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mountainNames = {"Matterhorn","Mont Blanc","Denali"};
     private String[] mountainLocations = {"Alps","Alps","Alaska"};
     private int[] mountainHeights ={4478,4808,6190};
     // Create ArrayLists from the raw data above and use these lists when populating your ListView.
-
+    private ArrayAdapter adapter;
+    private ArrayList<String> listData = new ArrayList<>(Arrays.asList(mountainNames));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        adapter= new ArrayAdapter(getApplicationContext(),R.layout.list_item_textview,
+                R.id.my_item_textview,listData);
+
+        ListView myListView = (ListView)findViewById(R.id.my_listview);
+
+        myListView.setAdapter(adapter);
+        adapter.add("Mount Everest");
+        adapter.add("K2");
+        adapter.add("Annapurna");
+        adapter.add("Kilimanjaro");
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent myIntent = new Intent(getApplicationContext(), MountainDetailsActivity.class);
+
+                int mHeightTemp = mountainHeights[position];
+                String mHeight = Integer.toString(mHeightTemp);
+                String mName = mountainNames[position];
+                String mLocation = mountainLocations[position];
+                //myIntent.putExtra(mHeight, mName);
+                myIntent.putExtra("Name"  , mName );
+                myIntent.putExtra("Height" , mHeight);
+                myIntent.putExtra("Location", mLocation);
+                startActivity(myIntent);
+            }
+        });
         // 1. Create a ListView as in previous assignment
         // 2. Create a new activity named "MountainDetailsActivity
         // 3. Create a new Layout file for the MountainDetailsActivity called
