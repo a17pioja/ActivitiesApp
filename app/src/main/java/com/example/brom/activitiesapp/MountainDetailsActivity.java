@@ -23,9 +23,15 @@ public class MountainDetailsActivity extends AppCompatActivity {
         String mHeight=myIntent.getStringExtra("mHeight");
         String mLocation=myIntent.getStringExtra("mLocation");
         */
-        String mText=myIntent.getStringExtra("Name");
-        TextView textView = (TextView) findViewById(R.id.mHeightID);
-        textView.setText(mText);
+        String mName=myIntent.getStringExtra("Name");
+        String mHeight=myIntent.getStringExtra("Height");
+        String mLocation=myIntent.getStringExtra("Location");
+        TextView textView1 = (TextView) findViewById(R.id.mHeightID);
+        textView1.setText(mName);
+        TextView textView2 = (TextView) findViewById(R.id.mHeightID2);
+        textView2.setText(mHeight);
+        TextView textView3 = (TextView) findViewById(R.id.mHeightID3);
+        textView3.setText(mLocation);
 
 
 
